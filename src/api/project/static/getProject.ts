@@ -1,8 +1,8 @@
 import { ClientType, createClient, Version3Models } from 'jira.js';
-import { Project } from './project';
-import { Context } from '../../context';
-import { ProjectModel } from '../../models';
-import { userContextWrapper } from '../user';
+import { Project } from '../project';
+import { Context } from '../../../context';
+import { ProjectModel } from '../models/projectModel';
+import { userContextWrapper } from '../../user';
 
 export async function getProject(projectId: string | number, context: Context): Promise<Project> {
   const apiV3 = createClient(ClientType.Version3, context.config);

@@ -1,7 +1,7 @@
 import { ClientType, createClient } from 'jira.js';
-import { Context } from '../../context';
-import { User } from './user';
-import { convertApiResponseToUser } from './convertApiResponseToUser';
+import { Context } from '../../../context';
+import { User } from '../user';
+import { convertApiResponseToUser } from '../convertApiResponseToUser';
 
 export async function getCurrentUser(context: Context): Promise<User> {
   const apiV3 = createClient(ClientType.Version3, context.config);

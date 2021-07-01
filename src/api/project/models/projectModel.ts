@@ -1,4 +1,4 @@
-import { User } from '../api';
+import { User } from '../../index';
 
 export interface ProjectModel {
   id: string;

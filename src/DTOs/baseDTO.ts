@@ -1,4 +1,4 @@
-export abstract class SetData<T> {
+export abstract class BaseDTO<T> {
   protected setData(data: Partial<T>): void {
     Object.keys(data).forEach((key) => {
       if (this.hasOwnProperty(key)) {

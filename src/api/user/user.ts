@@ -1,8 +1,8 @@
 import { ClientType, createClient } from 'jira.js';
-import { UserDto } from '../../DTOs';
-import { UserModel } from '../../models';
+import { UserDto } from './dto/userDto';
+import { UserModel } from './models/userModel';
 import { Context } from '../../context';
-import { getUser } from './getUser';
+import { getUser } from './static';
 
 export class User extends UserDto {
   private apiV3;

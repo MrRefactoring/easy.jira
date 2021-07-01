@@ -1,4 +1,4 @@
-import { User } from '../api/user';
+import { User } from '../../user';
 
 export interface IssueModel {
   id: string;

@@ -1,6 +1,5 @@
 import { Context } from '../../context';
-import { getUser } from './getUser';
-import { getCurrentUser } from './getCurrentUser';
+import { getCurrentUser, getUser } from './static';
 
 export function userContextWrapper(context: Context) {
   const get = async (userId: string) => getUser(userId, context);

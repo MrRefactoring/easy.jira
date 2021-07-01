@@ -1,6 +1,6 @@
 import { Context } from '../../context';
-import { getIssue } from './getIssue';
-import { createIssue } from './createIssue';
+import { getIssue } from './static/getIssue';
+import { createIssue } from './static/createIssue';
 
 export function issueContextWrapper(context: Context) {
   const get = async (issueIdOrKey: string) => getIssue(issueIdOrKey, context);

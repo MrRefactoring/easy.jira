@@ -1,9 +1,10 @@
 import { ClientType, createClient, Version3Client } from 'jira.js';
-import { IssueDto, UserDto } from '../../DTOs';
+import { IssueDto } from './dto/issueDto';
 import { Context } from '../../context';
-import { IssueModel } from '../../models';
-import { getIssue } from './getIssue';
-import { getUser } from '../user/getUser';
+import { IssueModel } from './models/issueModel';
+import { getIssue } from './static';
+import { getUser } from '../user/static';
+import { User } from '../user';
 
 export class Issue extends IssueDto {
   private apiV3: Version3Client;
@@ -39,7 +40,7 @@ export class Issue extends IssueDto {
   // async addComment() {
   // }
 
-  async assign(user?: string | UserDto) {
+  async assign(user?: string | User) {
     const userId = (typeof user === 'string' ? user : user?.id) ?? null;
 
     await this.apiV3.issues.assignIssue({

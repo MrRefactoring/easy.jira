@@ -1,21 +1,27 @@
 {
-  "name": "simple.jira.js",
+  "name": "easy.jira",
   "version": "0.0.1",
   "private": true,
   "description": "",
   "author": "Vladislav Tupikin <mrrefactoring@yandex.ru>",
   "main": "out/index.js",
   "types": "out/index.d.ts",
+  "repository": "https://github.com/MrRefactoring/easy.jira.git",
+  "keywords": [],
+  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "test": "jest",
+    "test:verbose": "jest --verbose",
+    "test:coverage": "jest --coverage",
     "test:e2e": "jest --testPattern=**.spec.ts",
     "lint": "eslint --ext .ts src tests",
     "lint:fix": "npm run lint -- --fix"
   },
-  "repository": "https://github.com/MrRefactoring/simple.jira.js.git",
-  "keywords": [],
-  "license": "MIT",
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@typescript-eslint/eslint-plugin": "^4.28.1",

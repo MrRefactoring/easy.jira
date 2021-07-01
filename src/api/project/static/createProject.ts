@@ -1,7 +1,7 @@
 import { ClientType, createClient } from 'jira.js';
-import { Context } from '../../context';
-import { Project } from './project';
-import { User } from '../user';
+import { Context } from '../../../context';
+import { Project } from '../project';
+import { User } from '../../user';
 import { getProject } from './getProject';
 
 export interface ProjectInformation {

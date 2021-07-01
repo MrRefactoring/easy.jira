@@ -1,7 +1,7 @@
 import { Version3Models } from 'jira.js';
 import { User } from './user';
 import { Context } from '../../context';
-import { UserModel } from '../../models';
+import { UserModel } from './models/userModel';
 
 export async function convertApiResponseToUser(apiResponse: Version3Models.User, context: Context): Promise<User> {
   const userModel: UserModel = {

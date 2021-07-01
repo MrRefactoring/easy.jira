@@ -1,8 +1,8 @@
 import { ClientType, createClient } from 'jira.js';
-import { ProjectDto } from '../../DTOs';
-import { ProjectModel } from '../../models';
+import { ProjectDto } from './dto/projectDto';
+import { ProjectModel } from './models/projectModel';
 import { Context } from '../../context';
-import { getProject } from './getProject';
+import { getProject } from './static';
 
 export class Project extends ProjectDto {
   private apiV3;

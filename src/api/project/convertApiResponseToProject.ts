@@ -1,6 +1,6 @@
 import { Version3Models } from 'jira.js';
 import { Project } from './project';
-import { ProjectModel } from '../../models';
+import { ProjectModel } from './models/projectModel';
 import { Context } from '../../context';
 import { userContextWrapper } from '../user';
 

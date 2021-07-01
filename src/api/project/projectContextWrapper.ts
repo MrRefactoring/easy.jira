@@ -1,8 +1,10 @@
 import { Context } from '../../context';
-import { getAllProjects } from './getAllProjects';
-import { getProjectsPaginated as getProjectsPaginatedWithContext } from './getProjectsPaginated';
-import { getProject } from './getProject';
-import { restoreProject } from './restoreProject';
+import {
+  getAllProjects,
+  getProject,
+  getProjectsPaginated as getProjectsPaginatedWithContext,
+  restoreProject,
+} from './static';
 
 export function projectContextWrapper(context: Context) {
   const getAll = async () => getAllProjects(context);

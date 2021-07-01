@@ -1,7 +1,7 @@
-import { UserModel } from '../models';
-import { SetData } from './setData';
+import { UserModel } from '../models/userModel';
+import { BaseDTO } from '../../../DTOs';
 
-export class UserDto extends SetData<UserDto> implements UserModel {
+export class UserDto extends BaseDTO<UserModel> implements UserModel {
   id!: string;
   active!: boolean;
   displayName?: string;

@@ -1,7 +1,7 @@
 import { ClientType, createClient } from 'jira.js';
-import { Issue } from './issue';
-import { Context } from '../../context';
-import { userContextWrapper } from '../user';
+import { Issue } from '../issue';
+import { Context } from '../../../context';
+import { userContextWrapper } from '../../user';
 
 export async function getIssue(issueIdOrKey: string, context: Context): Promise<Issue> {
   const apiV3 = createClient(ClientType.Version3, context.config);
