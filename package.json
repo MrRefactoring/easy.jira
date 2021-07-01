@@ -1,0 +1,37 @@
+{
+  "name": "simple.jira.js",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "author": "Vladislav Tupikin <mrrefactoring@yandex.ru>",
+  "main": "out/index.js",
+  "types": "out/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:e2e": "jest --testPattern=**.spec.ts",
+    "lint": "eslint --ext .ts src tests",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "repository": "https://github.com/MrRefactoring/simple.jira.js.git",
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "prettier-plugin-jsdoc": "^0.3.23",
+    "sinon": "^11.1.1",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "jira.js": "^2.4.1"
+  }
+}
