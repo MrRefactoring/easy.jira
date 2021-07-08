@@ -5,22 +5,24 @@ import { Context } from '../../context';
 import { getUser } from './static';
 
 export class User extends UserDto {
-  private apiV3;
+  readonly #apiV3;
+  readonly #context;
 
-  constructor(model: UserModel, private context: Context) {
+  constructor(model: UserModel, context: Context) {
     super(model);
 
-    this.apiV3 = createClient(ClientType.Version3, context.config);
+    this.#context = context;
+    this.#apiV3 = createClient(ClientType.Version3, context.config);
   }
 
   async sync() {
-    const user = await getUser(this.id, this.context);
+    const user = await getUser(this.id, this.#context);
 
     this.setData(user);
   }
 
   async delete(): Promise<void> {
-    await this.apiV3.users.removeUser({ accountId: this.id });
+    await this.#apiV3.users.removeUser({ accountId: this.id });
 
     this.setData({
       id: undefined,

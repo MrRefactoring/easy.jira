@@ -14,7 +14,7 @@
     "test": "jest",
     "test:verbose": "jest --verbose",
     "test:coverage": "jest --coverage",
-    "test:e2e": "jest --testPattern=**.spec.ts",
+    "test:e2e": "jest --testRegex=.*.spec.ts --setupFiles=./tests/e2e/setup.ts --runInBand --verbose",
     "lint": "eslint --ext .ts src tests",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -23,10 +23,11 @@
     "testEnvironment": "node"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
-    "@typescript-eslint/parser": "^4.28.1",
-    "eslint": "^7.29.0",
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.30.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.23.4",
@@ -38,6 +39,6 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "jira.js": "^2.4.1"
+    "jira.js": "^2.4.2"
   }
 }

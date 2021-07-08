@@ -7,30 +7,41 @@ import { getUser } from '../user/static';
 import { User } from '../user';
 
 export class Issue extends IssueDto {
-  private apiV3: Version3Client;
+  readonly #apiV3: Version3Client;
+  readonly #context: Context;
 
-  constructor(model: IssueModel, private context: Context) {
+  constructor(model: IssueModel, context: Context) {
     super(model);
 
-    this.apiV3 = createClient(ClientType.Version3, context.config);
+    this.#context = context;
+    this.#apiV3 = createClient(ClientType.Version3, context.config);
   }
 
   async sync(): Promise<void> {
-    const issue = await getIssue(this.id, this.context);
+    const issue = await getIssue(this.id, this.#context);
 
     this.setData(issue);
   }
 
-  // async update() {
-  // }
+  async update(): Promise<void> {
+    return this.#apiV3.issues.editIssue({
+      issueIdOrKey: this.id,
+      fields: {
+        summary: this.title,
+        labels: this.labels,
+      },
+    });
+  }
 
   async delete(): Promise<void> {
-    await this.apiV3.issues.deleteIssue({ issueIdOrKey: this.id });
+    await this.#apiV3.issues.deleteIssue({ issueIdOrKey: this.id });
 
     this.setData({
       id: undefined,
       key: undefined,
       assignee: undefined,
+      title: undefined,
+      labels: [],
     });
   }
 
@@ -43,12 +54,42 @@ export class Issue extends IssueDto {
   async assign(user?: string | User) {
     const userId = (typeof user === 'string' ? user : user?.id) ?? null;
 
-    await this.apiV3.issues.assignIssue({
+    await this.#apiV3.issues.assignIssue({
       issueIdOrKey: this.id,
-      // @ts-ignore
-      accountId: userId, // TODO change type in jira.js for remove ts-ignore
+      accountId: userId,
     });
 
-    this.assignee = await (userId ? getUser(userId, this.context) : undefined);
+    this.assignee = await (userId ? getUser(userId, this.#context) : null);
+  }
+
+  async setTitle(title: string): Promise<void> {
+    this.title = title;
+    return this.update();
+  }
+
+  async addLabel(label: string): Promise<void> {
+    return this.addLabels([label]);
+  }
+
+  async addLabels(labels: string[]): Promise<void> {
+    this.labels.push(...labels);
+    return this.update()
+      .catch((error) => {
+        this.labels = this.labels.slice(0, this.labels.length - labels.length);
+
+        throw error;
+      });
+  }
+
+  async addVote(): Promise<void> {
+    await this.#apiV3.issueVotes.addVote({ issueIdOrKey: this.id });
+
+    return this.sync();
+  }
+
+  async revokeVote(): Promise<void> {
+    await this.#apiV3.issueVotes.removeVote({ issueIdOrKey: this.id });
+
+    return this.sync();
   }
 }

@@ -1,2 +1,2 @@
-export * from './getCurrentUser';
+export * from './getMyselfUser';
 export * from './getUser';

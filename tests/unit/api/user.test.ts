@@ -10,7 +10,7 @@ describe('User', () => {
     });
 
     it('should contain getCurrent', () => {
-      expect(User.getCurrent).toBeDefined();
+      expect(User.getMySelf).toBeDefined();
     });
   });
 });

@@ -15,7 +15,7 @@ export interface ProjectInformation {
   description?: string;
   /** The default assignee when creating issues for this project. */
   assigneeType?: ProjectAssigneeType;
-  lead?: string | User;
+  lead: string | User;
 }
 
 export enum ProjectAssigneeType {
@@ -34,20 +34,20 @@ export async function createProject(projectInformation: ProjectInformation, cont
     key: projectInformation.key,
     name: projectInformation.name,
     assigneeType: projectInformation.assigneeType,
-    avatarId: 0,
-    categoryId: 0,
+    // avatarId: 0,
+    // categoryId: 0,
     description: projectInformation.description,
-    fieldConfigurationScheme: 0,
-    issueSecurityScheme: 0,
-    issueTypeScheme: 0,
-    issueTypeScreenScheme: 0,
+    // fieldConfigurationScheme: 0,
+    // issueSecurityScheme: 0,
+    // issueTypeScheme: 0,
+    // issueTypeScreenScheme: 0,
     leadAccountId,
-    notificationScheme: 0,
-    permissionScheme: 0,
-    projectTemplateKey: '',
-    projectTypeKey: '',
-    url: '',
-    workflowScheme: 0,
+    // notificationScheme: 0,
+    // permissionScheme: 0,
+    projectTemplateKey: 'com.atlassian.jira-core-project-templates:jira-core-project-management',
+    projectTypeKey: 'business',
+    // url: '',
+    // workflowScheme: 0,
   });
 
   return getProject(projectId, context);

@@ -3,26 +3,39 @@ import { ProjectDto } from './dto/projectDto';
 import { ProjectModel } from './models/projectModel';
 import { Context } from '../../context';
 import { getProject } from './static';
+import { IssueCreationData } from '../issue/static';
+import { issueContextWrapper } from '../issue';
 
 export class Project extends ProjectDto {
-  private apiV3;
+  readonly #apiV3;
+  readonly #context;
 
-  constructor(model: ProjectModel, private context: Context) {
+  constructor(model: ProjectModel, context: Context) {
     super(model);
 
-    this.apiV3 = createClient(ClientType.Version3, context.config);
+    this.#context = context;
+    this.#apiV3 = createClient(ClientType.Version3, context.config);
   }
 
   async sync(): Promise<void> {
-    const project = await getProject(this.id, this.context);
+    const project = await getProject(this.id, this.#context);
 
     this.setData(project);
   }
 
-  async update() {}
+  async update(): Promise<void> {
+    await this.#apiV3.projects.updateProject({
+      projectIdOrKey: this.id,
+      name: this.name,
+      leadAccountId: this.lead.id,
+      key: this.key,
+    });
+
+    return this.sync();
+  }
 
   async delete(enableUndo: boolean = false) {
-    await this.apiV3.projects.deleteProject({ projectIdOrKey: this.id, enableUndo });
+    await this.#apiV3.projects.deleteProject({ projectIdOrKey: this.id, enableUndo });
 
     this.setData({
       id: undefined,
@@ -33,11 +46,17 @@ export class Project extends ProjectDto {
   }
 
   async archive(): Promise<void> {
-    await this.apiV3.projects.archiveProject({ projectIdOrKey: this.id });
+    await this.#apiV3.projects.archiveProject({ projectIdOrKey: this.id });
     return this.sync();
   }
 
-  async setAvatar() {}
+  async createIssue(creationData: IssueCreationData & { project: never; }): Promise<void> {
+    const { Issue } = issueContextWrapper(this.#context);
 
-  async deleteAvatar() {}
+    await Issue.create({ ...creationData, project: this });
+  }
+
+  // async setAvatar() {}
+
+  // async deleteAvatar() {}
 }
