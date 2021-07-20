@@ -9,8 +9,8 @@ describe('User', () => {
       expect(User.get).toBeDefined();
     });
 
-    it('should contain getCurrent', () => {
-      expect(User.getMySelf).toBeDefined();
+    it('should contain getMyself', () => {
+      expect(User.getMyself).toBeDefined();
     });
   });
 });

@@ -65,7 +65,7 @@ describe('Issue e2e', () => {
     expect(createdIssue.id).toBeUndefined();
     expect(createdIssue.key).toBeUndefined();
     expect(createdIssue.title).toBeUndefined();
-    expect(createdIssue.labels).toEqual([]);
+    expect(createdIssue.labels).toBeUndefined();
     expect(createdIssue.assignee).toBeUndefined();
 
     Issue.get(issueId)

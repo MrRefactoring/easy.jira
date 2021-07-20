@@ -5,6 +5,8 @@ import { IssueModel } from './models/issueModel';
 import { getIssue } from './static';
 import { getUser } from '../user/static';
 import { User } from '../user';
+import { IssueMapper } from './issueMapper';
+import { getCache } from '../../cache';
 
 export class Issue extends IssueDto {
   readonly #apiV3: Version3Client;
@@ -13,36 +15,33 @@ export class Issue extends IssueDto {
   constructor(model: IssueModel, context: Context) {
     super(model);
 
-    this.#context = context;
     this.#apiV3 = createClient(ClientType.Version3, context.config);
+    this.#context = context;
   }
 
   async sync(): Promise<void> {
+    getCache(this.#context).delete(`Issue_${this.id}`);
+
     const issue = await getIssue(this.id, this.#context);
 
     this.setData(issue);
   }
 
   async update(): Promise<void> {
-    return this.#apiV3.issues.editIssue({
+    const apiIssue = await IssueMapper.issueModelToApi(this);
+
+    await this.#apiV3.issues.editIssue({
       issueIdOrKey: this.id,
-      fields: {
-        summary: this.title,
-        labels: this.labels,
-      },
+      fields: apiIssue.fields,
     });
+
+    return this.sync();
   }
 
   async delete(): Promise<void> {
     await this.#apiV3.issues.deleteIssue({ issueIdOrKey: this.id });
 
-    this.setData({
-      id: undefined,
-      key: undefined,
-      assignee: undefined,
-      title: undefined,
-      labels: [],
-    });
+    this.removeData();
   }
 
   // async addAttachment() {
@@ -60,11 +59,6 @@ export class Issue extends IssueDto {
     });
 
     this.assignee = await (userId ? getUser(userId, this.#context) : null);
-  }
-
-  async setTitle(title: string): Promise<void> {
-    this.title = title;
-    return this.update();
   }
 
   async addLabel(label: string): Promise<void> {

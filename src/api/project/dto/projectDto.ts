@@ -13,8 +13,4 @@ export class ProjectDto extends BaseDTO<ProjectModel> implements ProjectModel {
 
     this.setData(model);
   }
-
-  protected setData(data: Partial<ProjectModel>) {
-    super.setData(data, this);
-  }
 }

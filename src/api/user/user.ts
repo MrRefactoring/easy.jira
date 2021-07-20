@@ -24,13 +24,6 @@ export class User extends UserDto {
   async delete(): Promise<void> {
     await this.#apiV3.users.removeUser({ accountId: this.id });
 
-    this.setData({
-      id: undefined,
-      active: undefined,
-      displayName: undefined,
-      email: undefined,
-      locale: undefined,
-      timeZone: undefined,
-    });
+    this.removeData();
   }
 }

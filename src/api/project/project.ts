@@ -37,12 +37,7 @@ export class Project extends ProjectDto {
   async delete(enableUndo: boolean = false) {
     await this.#apiV3.projects.deleteProject({ projectIdOrKey: this.id, enableUndo });
 
-    this.setData({
-      id: undefined,
-      key: undefined,
-      name: undefined,
-      lead: undefined,
-    });
+    this.removeData();
   }
 
   async archive(): Promise<void> {

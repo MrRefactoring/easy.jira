@@ -14,8 +14,4 @@ export class UserDto extends BaseDTO<UserModel> implements UserModel {
 
     this.setData(model);
   }
-
-  protected setData(data: Partial<UserModel>) {
-    super.setData(data, this);
-  }
 }

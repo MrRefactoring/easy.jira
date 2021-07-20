@@ -3,7 +3,7 @@ import {
   createProject,
   getAllProjects,
   getProject,
-  getProjectsPaginated as getProjectsPaginatedWithContext,
+  // getProjectsPaginated as getProjectsPaginatedWithContext,
   ProjectInformation,
   restoreProject,
 } from './static';
@@ -11,7 +11,7 @@ import {
 export function projectContextWrapper(context: Context) {
   const create = async (creationData: ProjectInformation) => createProject(creationData, context);
   const getAll = async () => getAllProjects(context);
-  const getProjectsPaginated = async () => getProjectsPaginatedWithContext(context);
+  // const getProjectsPaginated = async () => getProjectsPaginatedWithContext(context);
   const get = async (projectIdOrKey: string) => getProject(projectIdOrKey, context);
   const restore = async (projectIdOrKey: string) => restoreProject(projectIdOrKey, context);
 
@@ -20,7 +20,7 @@ export function projectContextWrapper(context: Context) {
       create,
       get,
       getAll,
-      getProjectsPaginated,
+      // getProjectsPaginated,
       restore,
     },
   };

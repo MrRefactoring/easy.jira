@@ -11,9 +11,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "test": "jest",
-    "test:verbose": "jest --verbose",
-    "test:coverage": "jest --coverage",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:verbose": "npm run test:unit -- --verbose",
+    "test:coverage": "npm run test:unit -- --coverage",
+    "test:unit": "jest tests/unit",
     "test:e2e": "jest --testRegex=.*.spec.ts --setupFiles=./tests/e2e/setup.ts --runInBand --verbose",
     "lint": "eslint --ext .ts src tests",
     "lint:fix": "npm run lint -- --fix"
@@ -24,21 +25,20 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "dotenv": "^10.0.0",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "prettier-plugin-jsdoc": "^0.3.23",
-    "sinon": "^11.1.1",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "jira.js": "^2.4.2"
+    "jira.js": "^2.5.0"
   }
 }

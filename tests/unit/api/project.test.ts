@@ -9,9 +9,9 @@ describe('Project', () => {
       expect(Project.get).toBeDefined();
     });
 
-    it('should contain getProjectsPaginated', () => {
-      expect(Project.getProjectsPaginated).toBeDefined();
-    });
+    // it('should contain getProjectsPaginated', () => {
+    //   expect(Project.getProjectsPaginated).toBeDefined();
+    // });
 
     it('should contain getAll', () => {
       expect(Project.getAll).toBeDefined();
